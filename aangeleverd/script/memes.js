@@ -53,9 +53,9 @@ class Meme {
         .then(response => {
             if (response.ok) {
                 console.log('Meme saved successfully');
-                // Add the new meme to the display
+                // voeg de meme toe aan de tabel
                 this.show();
-                // Clear the form
+                // leeg het formulier
                 document.getElementById('newMeme').reset();
             } else {
                 throw new Error('Failed to save meme');
@@ -140,7 +140,7 @@ function getData() {
             return response.text();
         })
         .then(data => {
-            // Simulate the old XMLHttpRequest success callback
+            // Simuleer de oude XMLHttpRequest success callback
             success.call({responseText: data});
         })
         .catch(err => {
@@ -148,7 +148,7 @@ function getData() {
         });
 }
 
-// Load data when page loads
+// Laad data wanneer de pagina laadt
 getData();
 
 window.addEventListener('load', () => {

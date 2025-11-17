@@ -1,26 +1,26 @@
 <?php
-// Set content-type for JSON response
+// zet content-type voor JSON response
 header('Content-Type: application/json');
 
-// Get POST data
+// Haal POST-gegevens op
 $title = $_POST['title'] ?? '';
 $year = $_POST['year'] ?? '';
 $description = $_POST['description'] ?? '';
 $imageUrl = $_POST['imageUrl'] ?? '';
 $tags = $_POST['tags'] ?? '';
 
-// Validate required fields
+// Valideer vereiste velden
 if (empty($title) || empty($year) || empty($description) || empty($imageUrl)) {
     http_response_code(400);
-    echo json_encode(['error' => 'All fields are required']);
+    echo json_encode(['error' => 'Alle velden zijn verplicht']);
     exit;
 }
 
-// Connect to database
+// Maak verbinding met de database
 $db = new SQLite3("memes.db");
 $db->busyTimeout(5000);
 
-// Prepare and execute insert query with proper escaping
+// Prepareer en voer insert-query uit met juiste escaping
 $stmt = $db->prepare("INSERT INTO memes (title, year, description, url, tags) VALUES (?, ?, ?, ?, ?)");
 $stmt->bindValue(1, $title, SQLITE3_TEXT);
 $stmt->bindValue(2, intval($year), SQLITE3_INTEGER);

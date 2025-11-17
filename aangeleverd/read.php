@@ -6,28 +6,28 @@ header('Content-Type: application/json');
 $db = new SQLite3("memes.db");
 $db->busyTimeout(5000);
  
-// Select all memes from the memes table
-// ordered by year descending (newest first)
+// Selecteer alle memes uit de memes-tabel
+// gesorteerd op jaar aflopend (nieuwste eerst)
 $query = "SELECT * FROM memes ORDER BY year DESC";
 $result = $db->query($query);
 
-// Initialize array for results
+// Initialiseer array voor resultaten
 $jsonArray = [];
 
-// Check if query was successful
+// Controleer of query succesvol was
 if ($result) {
-    // Loop through results and add to array
+    // Loop door resultaten en voeg toe aan array
     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
         $jsonArray[] = $row;
     }
 } else {
-    // Handle query error
+    // Behandel query-fout
     http_response_code(500);
     echo json_encode(['error' => 'Database query failed']);
     exit;
 }
 
-// Encode array as JSON and output
+// Encodeer array als JSON en geef weer
 $json = json_encode($jsonArray);
 echo $json;
 
